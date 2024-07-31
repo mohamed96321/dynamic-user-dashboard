@@ -1,0 +1,28 @@
+<div class="search-container">
+  <div class="input-wrapper">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input type="text" placeholder="Search..." (input)="onSearch($event)">
+  </div>
+</div>
+
+<div *ngIf="loading$ | async; else userList" class="loading-container">
+  <div class="spinner"></div>
+</div>
+
+<ng-template #userList>
+  <div class="user-list-container">
+    <div *ngFor="let user of users$ | async" (click)="onUserClick(user.id)">
+      <app-user-card [user]="user"></app-user-card>
+    </div>
+  </div>
+</ng-template>
+
+<div class="pagination-controls">
+  <button (click)="onPageChange(page - 1)" [disabled]="page === 1">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>Page {{ page }}</span>
+  <button (click)="onPageChange(page + 1)" [disabled]="!hasMoreUsers">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>

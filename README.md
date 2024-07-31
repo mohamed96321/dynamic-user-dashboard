@@ -2,6 +2,23 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
+## Install packages
+
+```bash
+ng add @angular/material
+npm install @ngrx/store @ngrx/effects @ngrx/store-devtools @ngrx/entity
+```
+
+### Webiste
+
+<img align="right" alt="Coding" width="400" src="./src/assets/Screenshot 2024-07-31 221315.png">
+
+<img align="right" alt="Coding" width="400" src="./src/assets/Screenshot 2024-07-31 221333.png">
+
+<img align="right" alt="Coding" width="400" src="./src/assets/Screenshot 2024-07-31 221349.png">
+
+<img align="right" alt="Coding" width="400" src="./src/assets/Screenshot 2024-07-31 221415.png">
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

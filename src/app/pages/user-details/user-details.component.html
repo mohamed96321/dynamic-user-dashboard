@@ -1,0 +1,14 @@
+<div *ngIf="loading$ | async; else userContent" class="loading-container">
+  <div class="spinner"></div>
+</div>
+
+<ng-template #userContent>
+  <div *ngIf="user$ | async as user" class="user-content">
+    <h1 class="user-name">{{ user.first_name }} {{ user.last_name }}</h1>
+    <img [src]="user.avatar" alt="{{ user.first_name }} {{ user.last_name }}" class="user-avatar">
+    <p class="user-email">{{ user.email }}</p>
+    <button (click)="onBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+</ng-template>

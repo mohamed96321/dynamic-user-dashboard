@@ -1,29 +1,43 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { StoreModule, Store } from '@ngrx/store';
 import { AppComponent } from './app.component';
+import { userReducer } from './store/reducers/user.reducer';
+import { selectUserLoading } from './store/selectors/user.selectors';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let store: Store;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [
+        StoreModule.forRoot({ user: userReducer })
+      ]
+    }).compileComponents();
+
+    store = TestBed.inject(Store);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'my-app-router'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('my-app-router');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should display loading bar when loading', () => {
+    store.overrideSelector(selectUserLoading, true);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('my-app-router app is running!');
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.loading-bar')).toBeTruthy();
+  });
+
+  it('should not display loading bar when not loading', () => {
+    store.overrideSelector(selectUserLoading, false);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.loading-bar')).toBeFalsy();
   });
 });
